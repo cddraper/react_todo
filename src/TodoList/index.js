@@ -87,9 +87,9 @@ const TodoList = () => {
 
     const toggleTodo = (e, i) => {
         const newTodos = [...todos];
-        newTodos.isCompleted = !todos.isCompleted;
+        newTodos[i].isCompleted = !newTodos[i].isCompleted;
         setTodos(newTodos);
-        console.log(newTodos);
+        console.log(todos);
     }
 
 
@@ -104,6 +104,7 @@ const TodoList = () => {
                     value={todo.content} 
                     onKeyDown={e => handleKeyDown(e, i)}
                     onChange={e => updateTodo(e, i)}
+                    style={{textDecoration: todo.isCompleted ? 'line-through' : 'none'}}
                     />
                 </Wrapper>
             ))}
