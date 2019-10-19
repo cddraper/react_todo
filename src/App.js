@@ -18,6 +18,9 @@ const Form = styled.form`
   padding: 2em;
   display: flex;
   justify-content: center;
+  border-radius: 10px;
+  background: rgba(84, 13, 166, 0.6);
+  border: 2px solid white;
 `
 
 function App() {

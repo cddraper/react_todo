@@ -5,32 +5,40 @@ import styled from 'styled-components';
 
 // Styled Components
 const Ul = styled.ul`
-
+    width: 100%;
 `
 
 const Wrapper = styled.div`
     display: flex;
     margin: 7px;
+    justify-content: center;
 `
 
 const Checkbox = styled.div`
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: gray;
     margin-right: 5px;
+    border: 1px solid white;
+    padding: 2px;
 
     &:hover {
-        background: white;
+        background: #a46dd1;
+        cursor: pointer;
     }
 `
 
 const Input = styled.input`
-
+    width: 80%;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    padding-left: 5px;
+    background: #c3a6e3;
 `
 
 const I = styled.i`
-
+    color: #e8ed8a;
 `
 
 
