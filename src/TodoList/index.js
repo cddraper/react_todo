@@ -15,10 +15,10 @@ const Wrapper = styled.div`
 `
 
 const Checkbox = styled.div`
-    width: 20px;
-    height: 20px;
+    width: 23px;
+    height: 23px;
     border-radius: 50%;
-    margin-right: 5px;
+    margin-right: 10px;
     border: 1px solid white;
     padding: 2px;
 
@@ -35,10 +35,14 @@ const Input = styled.input`
     outline: none;
     padding-left: 5px;
     background: #c3a6e3;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
 `
 
 const I = styled.i`
     color: #e8ed8a;
+    font-size: 16px;
 `
 
 
@@ -46,11 +50,15 @@ const I = styled.i`
 const TodoList = () => {
     const [todos, setTodos] = useState([
         {
-            content: 'Take out the trash',
+            content: 'Wash dishes',
             isCompleted: true,
         },
         {
-            content: 'Wash the dishes',
+            content: 'Complete todo app',
+            isCompleted: true,
+        },
+        {
+            content: 'Solve world hunger',
             isCompleted: false,
         }
     ]);

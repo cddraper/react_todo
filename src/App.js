@@ -15,11 +15,11 @@ const Container = styled.div`
 const Form = styled.form`
   width: 400px;
   background: lightgray;
-  padding: 2em;
+  padding: 2em 1em;
   display: flex;
   justify-content: center;
-  border-radius: 10px;
-  background: rgba(84, 13, 166, 0.6);
+  border-radius: 5px;
+  background: rgba(84, 13, 166, 0.5);
   border: 2px solid white;
 `
 
