@@ -53,7 +53,6 @@ const TodoList = () => {
             createTodo(e, i)
         }
         if(e.key === 'Backspace' && todos[i].content === ''){
-            e.preventDefault();
             deleteTodo(e, i)
         }
     }
@@ -86,12 +85,19 @@ const TodoList = () => {
         setTodos(newTodos);
     }
 
+    const toggleTodo = (e, i) => {
+        const newTodos = [...todos];
+        newTodos.isCompleted = !todos.isCompleted;
+        setTodos(newTodos);
+        console.log(newTodos);
+    }
+
 
     return (
         <Ul>
             {todos.map((todo, i) => (
                 <Wrapper key={i}>
-                    <Checkbox>
+                    <Checkbox onClick={e => toggleTodo(e, i)}>
                         <I />
                     </Checkbox>
                     <Input 
