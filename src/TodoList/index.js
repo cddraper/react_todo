@@ -71,9 +71,13 @@ const TodoList = () => {
     }
 
     const deleteTodo = (e, i) => {
-        if(i === 0 & todos[i].content === '') return;
+        if(i === 0 && todos.length === 1) return;
         const newTodos = todos.slice(0, i).concat(todos.slice(i + 1, todos.length));
         setTodos(newTodos);
+        if(i === 0) return;
+        setTimeout(() => {
+            document.forms[0].elements[i - 1].focus();
+        }, 0)
     }
 
     const updateTodo = (e, i) => {
