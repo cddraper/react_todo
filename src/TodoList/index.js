@@ -52,6 +52,10 @@ const TodoList = () => {
         if(e.key === 'Enter'){
             createTodo(e, i)
         }
+        if(e.key === 'Backspace' && todos[i].content === ''){
+            e.preventDefault();
+            deleteTodo(e, i)
+        }
     }
 
     const createTodo = (e, i) => {
@@ -66,6 +70,18 @@ const TodoList = () => {
         setTodos(newTodos);
     }
 
+    const deleteTodo = (e, i) => {
+        if(i === 0 & todos[i].content === '') return;
+        const newTodos = todos.slice(0, i).concat(todos.slice(i + 1, todos.length));
+        setTodos(newTodos);
+    }
+
+    const updateTodo = (e, i) => {
+        const newTodos = [...todos];
+        newTodos[i].content = e.target.value
+        setTodos(newTodos);
+    }
+
 
     return (
         <Ul>
@@ -74,7 +90,11 @@ const TodoList = () => {
                     <Checkbox>
                         <I />
                     </Checkbox>
-                    <Input value={todo.content} onKeyDown={e => handleKeyDown(e, i)}/>
+                    <Input 
+                    value={todo.content} 
+                    onKeyDown={e => handleKeyDown(e, i)}
+                    onChange={e => updateTodo(e, i)}
+                    />
                 </Wrapper>
             ))}
         </Ul>
