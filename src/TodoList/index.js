@@ -98,7 +98,10 @@ const TodoList = () => {
             {todos.map((todo, i) => (
                 <Wrapper key={i}>
                     <Checkbox onClick={e => toggleTodo(e, i)}>
-                        <I />
+                        <I 
+                        className="fas fa-check" 
+                        style={{display: todo.isCompleted ? 'block' : 'none'}}
+                        />
                     </Checkbox>
                     <Input 
                     value={todo.content} 
