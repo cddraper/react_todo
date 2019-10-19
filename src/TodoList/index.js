@@ -1,68 +1,81 @@
 // External Dependencies
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 
+// Styled Components
 const Ul = styled.ul`
+
 `
 
-const StyledDiv = styled.div`
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  margin: 0.5em auto 0 auto;
+const Wrapper = styled.div`
+    display: flex;
+    margin: 7px;
 `
 
 const Checkbox = styled.div`
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  background: gray;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: gray;
+    margin-right: 5px;
 
-  &:hover {
-    background: lightgray;
-    border: 1px solid white;
-  }
+    &:hover {
+        background: white;
+    }
 `
 
 const Input = styled.input`
-  width: 80%;
-  border-radius: 6px;
-  border: 1px solid gray;
-  outline: none;
-  padding-left: 5px;
+
+`
+
+const I = styled.i`
+
 `
 
 
 // Component Definition
 const TodoList = () => {
     const [todos, setTodos] = useState([
-      {
-        content: 'Take out trash',
-        isCompleted: true,
-      },
-      {
-        content: 'Wash dishes',
-        isCompleted: true,
-      },
-      {
-        content: 'Complete todo app',
-        isCompleted: false,
-      }
+        {
+            content: 'Take out the trash',
+            isCompleted: true,
+        },
+        {
+            content: 'Wash the dishes',
+            isCompleted: false,
+        }
     ]);
+
+
+    const handleKeyDown = (e, i) => {
+        if(e.key === 'Enter'){
+            createTodo(e, i)
+        }
+    }
+
+    const createTodo = (e, i) => {
+        const newTodos = [...todos];
+        newTodos.splice(i + 1, 0, {
+            content: '',
+            isCompleted: false,
+        })
+        setTimeout(() => {
+            document.forms[0].elements[i + 1].focus()
+        }, 0);
+        setTodos(newTodos);
+    }
 
 
     return (
         <Ul>
-          {todos.map((todo, i) => (
-                <StyledDiv>
-                    <Checkbox />
-                    <Input 
-                      type="text" 
-                      value={todo.content}
-                      
-                    />
-                </StyledDiv>
+            {todos.map((todo, i) => (
+                <Wrapper key={i}>
+                    <Checkbox>
+                        <I />
+                    </Checkbox>
+                    <Input value={todo.content} onKeyDown={e => handleKeyDown(e, i)}/>
+                </Wrapper>
             ))}
         </Ul>
     )

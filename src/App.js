@@ -2,27 +2,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
 // Internal Dependencies
-import './app.css';
 import TodoList from './TodoList/index';
-
-
 
 const Container = styled.div`
   display: flex;
+  height: 100vh;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 `
 
 const Form = styled.form`
+  width: 400px;
   background: lightgray;
-  border-radius: 5px;
   padding: 2em;
-  width: 25vw;
+  display: flex;
+  justify-content: center;
 `
-
 
 function App() {
   return (
