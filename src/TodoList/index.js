@@ -20,6 +20,7 @@ const Form = styled.form`
 
 const Ul = styled.ul`
     width: 100%;
+    padding-top: 3.25rem;
     margin-bottom: 2rem;
 `
 

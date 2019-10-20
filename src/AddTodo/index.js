@@ -6,13 +6,19 @@ import styled from 'styled-components'
 // Styled Components
 
 const TodoButton = styled.i({
+    position: 'absolute',
     color: '#28fcbd',
     fontSize: '25px',
     margin: '1rem',
     
     '&:hover': {
         cursor: 'pointer',
-    }
+        fontSize: '27px',
+    },
+
+    '&:active': {
+        color: '#4ab4ff'
+    },
 })
 
 
