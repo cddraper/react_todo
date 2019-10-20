@@ -3,10 +3,24 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import uuid from 'uuid';
 
+// Internal Dependencies
+import AddTodo from '../AddTodo/index';
 
 // Styled Components
+const Form = styled.form`
+  width: 400px;
+  background: lightgray;
+  border-radius: 5px;
+  background: rgba(84, 13, 166, 0.5);
+  border: 2px solid white;
+  position: absolute;
+  top: 3rem;
+  margin-bottom: 3rem;
+`
+
 const Ul = styled.ul`
     width: 100%;
+    margin-bottom: 2rem;
 `
 
 const Wrapper = styled.div`
@@ -54,7 +68,7 @@ const I = styled.i((props) => ({
 
 // Component Definition
 const TodoList = () => {
-    const [todos, setTodos] = useState([
+   const [todos, setTodos] = useState([
         {
             id: uuid(),
             content: 'Wash dishes',
@@ -81,22 +95,22 @@ const TodoList = () => {
         }
     }
 
-    const createTodo = (e, i) => {
+    const createTodo = () => {
         const newTodos = [...todos];
-        newTodos.splice(i + 1, 0, {
+        newTodos.push({
             id: uuid(),
             content: '',
             isCompleted: false,
         })
         setTimeout(() => {
-            document.forms[0].elements[i + 1].focus()
+            document.forms[0].elements[newTodos.length - 1].focus()
         }, 0);
         setTodos(newTodos);
     }
 
     const deleteTodo = (e, i) => {
         if(i === 0 && todos.length === 1) return;
-        const newTodos = todos.filter(todo => todo.id !== i + 1);
+        const newTodos = todos.filter(todo => todo.id !== todos[i].id);
         setTodos(newTodos);
         if(i === 0) return;
         setTimeout(() => {
@@ -119,24 +133,27 @@ const TodoList = () => {
 
 
     return (
-        <Ul>
-            {todos.map((todo, i) => (
-                <Wrapper key={i}>
-                    <Checkbox onClick={e => toggleTodo(e, i)}>
-                        <I 
-                        className="fas fa-check" 
+        <Form>
+            <AddTodo createTodo={createTodo}/>
+            <Ul>
+                {todos.map((todo, i) => (
+                    <Wrapper key={i}>
+                        <Checkbox onClick={e => toggleTodo(e, i)}>
+                            <I 
+                            className="fas fa-check" 
+                            isCompleted={todo.isCompleted}
+                            />
+                        </Checkbox>
+                        <Input 
                         isCompleted={todo.isCompleted}
+                        value={todo.content} 
+                        onKeyDown={e => handleKeyDown(e, i)}
+                        onChange={e => updateTodo(e, i)}
                         />
-                    </Checkbox>
-                    <Input 
-                    isCompleted={todo.isCompleted}
-                    value={todo.content} 
-                    onKeyDown={e => handleKeyDown(e, i)}
-                    onChange={e => updateTodo(e, i)}
-                    />
-                </Wrapper>
-            ))}
-        </Ul>
+                    </Wrapper>
+                ))}
+            </Ul>
+        </Form>
     )
 }
 
