@@ -1,6 +1,7 @@
 // External Dependencies
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import uuid from 'uuid';
 
 
 // Styled Components
@@ -14,55 +15,62 @@ const Wrapper = styled.div`
     justify-content: center;
 `
 
-const Checkbox = styled.div`
-    width: 23px;
-    height: 23px;
-    border-radius: 50%;
-    margin-right: 10px;
-    border: 1px solid white;
-    padding: 2px;
+const Checkbox = styled.div({
+    width: '23px',
+    height: '23px',
+    borderRadius: '50%',
+    marginRight: '10px',
+    border: '1px solid white',
+    padding: '2px',
 
-    &:hover {
-        background: #a46dd1;
-        cursor: pointer;
+    '&:hover': {
+        background: '#a46dd1',
+        cursor: 'pointer',
     }
-`
+})
 
-const Input = styled.input`
-    width: 80%;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    padding-left: 5px;
-    background: #c3a6e3;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 500;
-    font-size: 18px;
-`
+const Input = styled.input((props) => {
+    
+    return ({
+    width: '80%',
+    borderRadius: '5px',
+    border: 'none',
+    outline: 'none',
+    paddingLeft: '5px',
+    background: '#c3a6e3',
+    fontFamily: 'Raleway, sans-serif',
+    fontWeight: '500',
+    fontSize: '18px',
+    textDecoration: props.isCompleted ? 'line-through' : 'none',
+})})
+    
 
-const I = styled.i`
-    color: #e8ed8a;
-    font-size: 16px;
-`
+const I = styled.i((props) => ({
+    color: '#e8ed8a',
+    fontSize: '16px',
+    display: props.isCompleted ? 'block' : 'none',
+}))
 
 
 // Component Definition
 const TodoList = () => {
     const [todos, setTodos] = useState([
         {
+            id: uuid(),
             content: 'Wash dishes',
             isCompleted: true,
         },
         {
+            id: uuid(),
             content: 'Complete todo app',
             isCompleted: true,
         },
-        {
+        {   id: uuid(),
             content: 'Solve world hunger',
             isCompleted: false,
         }
     ]);
-
+    console.log({todos})
 
     const handleKeyDown = (e, i) => {
         if(e.key === 'Enter'){
@@ -76,6 +84,7 @@ const TodoList = () => {
     const createTodo = (e, i) => {
         const newTodos = [...todos];
         newTodos.splice(i + 1, 0, {
+            id: uuid(),
             content: '',
             isCompleted: false,
         })
@@ -87,7 +96,7 @@ const TodoList = () => {
 
     const deleteTodo = (e, i) => {
         if(i === 0 && todos.length === 1) return;
-        const newTodos = todos.slice(0, i).concat(todos.slice(i + 1, todos.length));
+        const newTodos = todos.filter(todo => todo.id !== i + 1);
         setTodos(newTodos);
         if(i === 0) return;
         setTimeout(() => {
@@ -116,14 +125,14 @@ const TodoList = () => {
                     <Checkbox onClick={e => toggleTodo(e, i)}>
                         <I 
                         className="fas fa-check" 
-                        style={{display: todo.isCompleted ? 'block' : 'none'}}
+                        isCompleted={todo.isCompleted}
                         />
                     </Checkbox>
                     <Input 
+                    isCompleted={todo.isCompleted}
                     value={todo.content} 
                     onKeyDown={e => handleKeyDown(e, i)}
                     onChange={e => updateTodo(e, i)}
-                    style={{textDecoration: todo.isCompleted ? 'line-through' : 'none'}}
                     />
                 </Wrapper>
             ))}
