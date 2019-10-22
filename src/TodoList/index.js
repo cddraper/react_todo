@@ -66,6 +66,19 @@ const I = styled.i((props) => ({
     display: props.isCompleted ? 'block' : 'none',
 }))
 
+const DeleteButton = styled.i({
+    color: 'white',
+    fontSize: '16px',
+    padding: '4px',
+    borderRadius: '3px',
+    marginLeft: '10px',
+
+    '&:hover': {
+        background: '#f54636',
+        cursor: 'pointer',
+    }
+})
+
 
 // Component Definition
 const TodoList = () => {
@@ -119,6 +132,11 @@ const TodoList = () => {
         }, 0)
     }
 
+    const deleteTodoButton = (e, i) => {
+        const newTodos = todos.filter(todo => todo.id !== todos[i].id);
+        setTodos(newTodos);
+    }
+
     const updateTodo = (e, i) => {
         const newTodos = [...todos];
         newTodos[i].content = e.target.value
@@ -138,7 +156,7 @@ const TodoList = () => {
             <AddTodo createTodo={createTodo}/>
             <Ul>
                 {todos.map((todo, i) => (
-                    <Wrapper key={i}>
+                    <Wrapper key={uuid()}>
                         <Checkbox onClick={e => toggleTodo(e, i)}>
                             <I 
                             className="fas fa-check" 
@@ -150,6 +168,10 @@ const TodoList = () => {
                         value={todo.content} 
                         onKeyDown={e => handleKeyDown(e, i)}
                         onChange={e => updateTodo(e, i)}
+                        />
+                        <DeleteButton 
+                        className="fas fa-trash-alt"
+                        onClick={e => deleteTodoButton(e, i)} 
                         />
                     </Wrapper>
                 ))}
