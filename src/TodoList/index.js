@@ -67,7 +67,7 @@ const I = styled.i((props) => ({
 }))
 
 const DeleteButton = styled.i({
-    color: 'white',
+    color: 'rgba(84, 13, 166, 0.5)',
     fontSize: '16px',
     padding: '4px',
     borderRadius: '3px',
@@ -76,6 +76,7 @@ const DeleteButton = styled.i({
     '&:hover': {
         background: '#f54636',
         cursor: 'pointer',
+        color: 'white',
     }
 })
 
