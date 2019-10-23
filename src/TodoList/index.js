@@ -14,7 +14,7 @@ const Form = styled.form`
   background: rgba(84, 13, 166, 0.5);
   border: 2px solid white;
   position: absolute;
-  top: 3rem;
+  top: 6rem;
   margin-bottom: 3rem;
 `
 
