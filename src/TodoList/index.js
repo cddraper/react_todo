@@ -9,18 +9,20 @@ import AddTodo from '../AddTodo/index';
 // Styled Components
 const Form = styled.form`
   width: 400px;
+  display: flex;
+  align-self: center;
   background: lightgray;
   border-radius: 5px;
   background: rgba(84, 13, 166, 0.5);
   border: 2px solid white;
-  position: absolute;
-  top: 6rem;
-  margin-bottom: 3rem;
+  margin: 3rem 0;
 `
 
 const Ul = styled.ul`
     width: 100%;
+    max-height: auto;
     padding-top: 3.25rem;
+    padding-bottom: 0;
     margin-bottom: 2rem;
 `
 

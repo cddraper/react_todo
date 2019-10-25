@@ -8,8 +8,9 @@ import TodoList from './TodoList/index';
 
 const Container = styled.div`
   display: flex;
+  flex-flow: column;
   height: 100vh;
-  justify-content: center;
+  margin: auto;
 `
 
 function App() {

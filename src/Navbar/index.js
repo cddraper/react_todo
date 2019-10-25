@@ -6,6 +6,7 @@ import styled from 'styled-components';
 // Styled Components
 const Wrapper = styled.div({
     width: '100%',
+    height: '80px',
 })
 
 const Nav = styled.nav((props) => {
@@ -30,7 +31,14 @@ const Ul = styled.ul({
 })
 
 const Li = styled.li({
+    // borderBottom: '2px solid transparent',
 
+    // '&:hover': {
+    //     borderBottom: '2px solid white',
+    //     transform: 'scaleY(1)',
+    //     transformOrigin: 'center',
+    //     transition: 'borderBottom 0.5s ease-in',
+    // }
 })
 
 const A = styled.a({
@@ -38,6 +46,29 @@ const A = styled.a({
     textDecoration: 'none',
     fontSize: '18px',
     fontWeight: '500',
+
+    '::after': {
+        content: '""',
+        height: '2px',
+        width: '100%',
+        background: 'white',
+        display: 'block',
+        marginTop: '4px',
+        visibility: 'hidden',
+        transform: 'scaleX(0)',
+        transition: '0.3s',
+    },
+
+    '&:hover::after': {
+        content: '""',
+        height: '2px',
+        width: '100%',
+        background: 'white',
+        display: 'block',
+        marginTop: '4px',
+        transform: 'scaleX(1)',
+        visibility: 'visible',
+    },
 })
 
 const Logo = styled.img({
@@ -62,6 +93,7 @@ const Hamburger = styled.i((props) => {
 
     '&:hover': {
         cursor: 'pointer',
+        color: '#eaff73',
     }
 })})
 
@@ -69,7 +101,7 @@ const Hamburger = styled.i((props) => {
 // Component Definition
 const Navbar = () => {
 
-    const [navbarStatus, setNavbarStatus] = useState(false);
+    const [navbarStatus, setNavbarStatus] = useState(true);
 
     const toggleNavbar = () => {
         let toggledStatus = !navbarStatus;
