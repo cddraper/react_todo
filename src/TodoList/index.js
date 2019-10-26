@@ -119,10 +119,10 @@ const TodoList = () => {
             content: '',
             isCompleted: false,
         })
+        setTodos(newTodos);
         setTimeout(() => {
             document.forms[0].elements[newTodos.length - 1].focus()
         }, 0);
-        setTodos(newTodos);
     }
 
     const deleteTodo = (e, i) => {
@@ -159,7 +159,7 @@ const TodoList = () => {
             <AddTodo createTodo={createTodo}/>
             <Ul>
                 {todos.map((todo, i) => (
-                    <Wrapper key={uuid()}>
+                    <Wrapper key={todo.id}>
                         <Checkbox onClick={e => toggleTodo(e, i)}>
                             <I 
                             className="fas fa-check" 

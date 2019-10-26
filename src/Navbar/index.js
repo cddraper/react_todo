@@ -74,7 +74,7 @@ const A = styled.a({
 const Logo = styled.img({
     height: '60px',
     width: 'auto',
-    margin: '5px',
+    margin: '5px 20px',
     borderRadius: '50%',
     border: 'solid black 2px',
 })
