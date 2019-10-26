@@ -15,7 +15,7 @@ const Form = styled.form`
   border-radius: 5px;
   background: rgba(84, 13, 166, 0.5);
   border: 2px solid white;
-  margin: 3rem 0;
+  margin: 5.5rem 0;
 `
 
 const Ul = styled.ul`
@@ -112,13 +112,27 @@ const TodoList = () => {
         }
     }
 
-    const createTodo = () => {
+    const createTodo = (e, i) => {
         const newTodos = [...todos];
-        newTodos.push({
+        newTodos.splice(i + 1, 0, {
             id: uuid(),
             content: '',
             isCompleted: false,
         })
+        setTodos(newTodos);
+        setTimeout(() => {
+            document.forms[0].elements[i + 1].focus()
+        }, 0);
+    }
+
+    const createTodoButton = () => {
+        const newTodos = [...todos];
+        console.log(newTodos);
+        newTodos.push({
+            id: uuid(),
+            content: '',
+            isCompleted: false,
+        });
         setTodos(newTodos);
         setTimeout(() => {
             document.forms[0].elements[newTodos.length - 1].focus()
@@ -156,7 +170,7 @@ const TodoList = () => {
 
     return (
         <Form>
-            <AddTodo createTodo={createTodo}/>
+            <AddTodo createTodoButton={createTodoButton}/>
             <Ul>
                 {todos.map((todo, i) => (
                     <Wrapper key={todo.id}>

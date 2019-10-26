@@ -28,7 +28,7 @@ const AddTodo = (props) => {
     return (
         <TodoButton 
         className="fas fa-plus"
-        onClick={props.createTodo}
+        onClick={props.createTodoButton}
         />
     )
 }
