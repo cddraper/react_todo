@@ -31,18 +31,13 @@ const Ul = styled.ul({
 })
 
 const Li = styled.li({
-    // borderBottom: '2px solid transparent',
 
-    // '&:hover': {
-    //     borderBottom: '2px solid white',
-    //     transform: 'scaleY(1)',
-    //     transformOrigin: 'center',
-    //     transition: 'borderBottom 0.5s ease-in',
-    // }
 })
 
-const A = styled.a({
-    color: 'white',
+const A = styled.a((props) => {
+    
+    return({
+    color: props.className? '#eaff73' : 'white',
     textDecoration: 'none',
     fontSize: '18px',
     fontWeight: '500',
@@ -51,11 +46,11 @@ const A = styled.a({
         content: '""',
         height: '2px',
         width: '100%',
-        background: 'white',
+        background: props.className? '#eaff73' : 'white',
         display: 'block',
         marginTop: '4px',
-        visibility: 'hidden',
-        transform: 'scaleX(0)',
+        visibility: props.className? 'visible' : 'hidden',
+        transform: props.className? 'scaleX(1)' : 'scaleX(0)',
         transition: '0.3s',
     },
 
@@ -63,20 +58,37 @@ const A = styled.a({
         content: '""',
         height: '2px',
         width: '100%',
-        background: 'white',
+        background: props.className? '#eaff73' : 'white',
         display: 'block',
         marginTop: '4px',
         transform: 'scaleX(1)',
         visibility: 'visible',
     },
+})})
+
+const LogoWrapper = styled.div({
+    display: 'flex',
+    height: '100%',
+    alignItems: 'center',
 })
 
 const Logo = styled.img({
     height: '60px',
-    width: 'auto',
-    margin: '5px 20px',
+    width: '60px',
+    margin: '5px 5px 5px 20px',
     borderRadius: '50%',
-    border: 'solid black 2px',
+    border: 'solid black 1px',
+})
+
+const LogoText = styled.p({
+    color: 'white',
+    fontSize: '20px',
+    fontFamily: 'Kalam',
+})
+
+const LogoTextWrapper = styled.div({
+    display: 'flex',
+    flexFlow: 'column',
 })
 
 const Hamburger = styled.i((props) => {
@@ -112,10 +124,16 @@ const Navbar = () => {
     return (
         <Wrapper>
             <Nav navbarStatus={navbarStatus}>
-                <Logo src='checklogonoborder.png' alt="logo" />
+                <LogoWrapper>
+                    <Logo src='checklogov2.png' alt="logo" />
+                    <LogoTextWrapper>
+                        <LogoText>Todo</LogoText>
+                        <LogoText>List</LogoText>
+                    </LogoTextWrapper>
+                </LogoWrapper>
                 <Ul>
                     <Li><A href='#'>Home</A></Li>
-                    <Li><A href='#'>Todo List</A></Li>
+                    <Li><A href='#' className='active'>Todo List</A></Li>
                     <Li><A href='#'>FAQ</A></Li>
                 </Ul>
             </Nav>

@@ -3,8 +3,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Internal Dependencies
-import Navbar from './Navbar/index';
-import TodoList from './TodoList/index';
+import Navbar from './Components/Navbar/index';
+import NewTodoForm from './Components/NewTodoForm/index';
+import TodoList from './Components/TodoList/index';
+import Footer from './Components/Footer/index';
 
 const Container = styled.div`
   display: flex;
@@ -18,6 +20,7 @@ function App() {
     <Container>
       <Navbar />
       <TodoList />
+      <Footer />
     </Container>
   );
 }
