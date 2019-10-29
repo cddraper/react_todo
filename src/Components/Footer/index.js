@@ -6,7 +6,6 @@ import styled from 'styled-components';
 // Styled Components
 
 const Wrapper = styled.div({
-    position: 'absolute',
     bottom: '0',
     display: 'grid',
     gridTemplateColumns: '1fr 1fr 1fr 1fr',

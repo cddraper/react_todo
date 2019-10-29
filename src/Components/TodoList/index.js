@@ -121,7 +121,7 @@ const TodoList = () => {
         })
         setTodos(newTodos);
         setTimeout(() => {
-            document.forms[0].elements[i + 1].focus()
+            document.forms[1].elements[i + 1].focus()
         }, 0);
     }
 
@@ -135,7 +135,7 @@ const TodoList = () => {
         });
         setTodos(newTodos);
         setTimeout(() => {
-            document.forms[0].elements[newTodos.length - 1].focus()
+            document.forms[1].elements[newTodos.length - 1].focus()
         }, 0);
     }
 
@@ -145,7 +145,7 @@ const TodoList = () => {
         setTodos(newTodos);
         if(i === 0) return;
         setTimeout(() => {
-            document.forms[0].elements[i - 1].focus();
+            document.forms[1].elements[i - 1].focus();
         }, 0)
     }
 
