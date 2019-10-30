@@ -17,19 +17,20 @@ const Container = styled.div`
 `
 
 const Wrapper = styled.div({
-  display: 'flex',
-  alignItems: 'center',
+  display: 'grid',
+  gridTemplateColumns: 'repeat(4, 20%)',
+  alignItems: 'flex-start',
+  justifyContent: 'space-around',
   height: '100%',
   margin: '1rem',
 
 })
 
-const ListBox = styled.div({
+const ListBox = styled.form({
   background: 'lightgray',
   padding: '2rem',
-  width: '400px',
+  width: '100%',
   height: 'auto',
-  margin: '1rem',
 })
 
 const Title = styled.input({
@@ -44,7 +45,7 @@ const Ul = styled.ul({
 })
 
 const Input = styled.input({
-
+  width: '100%',
 })
 
 // Component Definition
@@ -52,6 +53,7 @@ function App() {
 
   const [todoList, setTodoList] = useState([
     {
+      id: uuid(),
       listName: 'Today',
       todos: [
         {
@@ -72,6 +74,7 @@ function App() {
       ]
     },
     {
+      id: uuid(),
       listName: 'This Week',
       todos: [
         {
@@ -99,7 +102,7 @@ const handleAddClick = (e, i) => {
   e.preventDefault();
   let newTodoList = [...todoList];
   newTodoList.push({
-    listName: '',
+    listName: document.forms[0].elements[0].value,
     todos: [
       {
         id: uuid(),
@@ -109,6 +112,7 @@ const handleAddClick = (e, i) => {
     ]
   });
   setTodoList(newTodoList);
+  document.forms[0].elements[0].value = '';
 }
 
 const updateListName = (e, i) => {
@@ -119,27 +123,28 @@ const updateListName = (e, i) => {
 
 
 // // TodoList logic
-// const handleKeyDown = (e, i) => {
-//   if(e.key === 'Enter'){
-//       createTodo(e, i)
-//   }
-//   if(e.key === 'Backspace' && todos[i].content === ''){
-//       deleteTodo(e, i)
-//   }
-// }
+const handleKeyDown = (e, i, j) => {
+  if(e.key === 'Enter'){
+      createTodo(e, i, j)
+  }
+  if(e.key === 'Backspace' && todoList[i].todos[j].content === ''){
+      deleteTodo(e, i, j)
+      console.log('backspace');
+  }
+}
 
-// const createTodo = (e, i) => {
-//   const newTodos = [...todos];
-//   newTodos.splice(i + 1, 0, {
-//       id: uuid(),
-//       content: '',
-//       isCompleted: false,
-//   })
-//   setTodos(newTodos);
-//   setTimeout(() => {
-//       document.forms[1].elements[i + 1].focus()
-//   }, 0);
-// }
+const createTodo = (e, i, j) => {
+  const newTodoList = [...todoList];
+  newTodoList[i].todos.splice(j + 1, 0, {
+      id: uuid(),
+      content: '',
+      isCompleted: false,
+  })
+  setTodoList(newTodoList);
+  setTimeout(() => {
+      document.forms[i + 1].elements[j + 2].focus()
+  }, 0);
+}
 
 // const createTodoButton = () => {
 //   const newTodos = [...todos];
@@ -155,15 +160,17 @@ const updateListName = (e, i) => {
 //   }, 0);
 // }
 
-// const deleteTodo = (e, i) => {
-//   if(i === 0 && todos.length === 1) return;
-//   const newTodos = todos.filter(todo => todo.id !== todos[i].id);
-//   setTodos(newTodos);
-//   if(i === 0) return;
-//   setTimeout(() => {
-//       document.forms[1].elements[i - 1].focus();
-//   }, 0)
-// }
+const deleteTodo = (e, i, j) => {
+  if(j === 0 && todoList[i].todos.length === 1) return;
+  const newTodoList = [...todoList];
+  const newTodos = todoList[i].todos.filter(todo => todo.id !== todoList[i].todos[j].id);
+  newTodoList[i].todos = newTodos;
+  setTodoList(newTodoList);
+  if(j === 0) return;
+  setTimeout(() => {
+      document.forms[i + 1].elements[j].focus();
+  }, 0);
+}
 
 // const deleteTodoButton = (e, i) => {
 //   const newTodos = todos.filter(todo => todo.id !== todos[i].id);
@@ -189,15 +196,19 @@ const updateTodo = (e, i, j) => {
       <NewTodoForm handleAddClick={handleAddClick}/>
       <Wrapper>
         {todoList.map((list, i) => (
-          <ListBox>
+          <ListBox key={list.id}>
             <Title 
             value={list.listName}
             onChange={e => updateListName(e, i)} />
             <Ul>
               {list.todos.map((todo, j) => (
-                <Input 
-                value={todo.content}
-                onChange={e => updateTodo(e, i, j)} />
+                <div key={todo.id}>
+                  <Input 
+                  value={todo.content}
+                  onChange={e => updateTodo(e, i, j)}
+                  onKeyDown={e => handleKeyDown(e, i, j)} 
+                  />
+                </div>
               ))}
             </Ul>
           </ListBox>

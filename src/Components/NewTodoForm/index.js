@@ -58,7 +58,7 @@ const NewTodoForm = (props) => {
     return (
         <Form>
             <Header>Add a new Todo list</Header>
-            <Input type="text" placeholder="List Title..." />
+            <Input type="text" placeholder="List name..." />
             <Add 
             type="submit"
             onClick={props.handleAddClick}

@@ -118,7 +118,7 @@ const Navbar = () => {
         let toggledStatus = !navbarStatus;
         setNavbarStatus(toggledStatus);
     }
-    console.log(navbarStatus);
+    // console.log(navbarStatus);
 
     return (
         <Wrapper>
