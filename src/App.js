@@ -7,6 +7,7 @@ import uuid from 'uuid';
 import Navbar from './Components/Navbar/index';
 import NewTodoForm from './Components/NewTodoForm/index';
 // import TodoList from './Components/TodoList/index';
+import AddTodo from './Components/AddTodo/index';
 import Footer from './Components/Footer/index';
 
 const Container = styled.div`
@@ -18,7 +19,7 @@ const Container = styled.div`
 
 const Wrapper = styled.div({
   display: 'grid',
-  gridTemplateColumns: 'repeat(4, 20%)',
+  gridTemplateColumns: 'repeat(3, 400px)',
   alignItems: 'flex-start',
   justifyContent: 'space-around',
   height: '100%',
@@ -27,10 +28,12 @@ const Wrapper = styled.div({
 })
 
 const ListBox = styled.form({
-  background: 'lightgray',
-  padding: '2rem',
-  width: '100%',
-  height: 'auto',
+  width: '400px',
+  display: 'flex',
+  flexFlow: 'column',
+  borderRadius: '5px',
+  background: 'rgba(84 , 13 , 166 , 0.5)',
+  border: '2px solid white',
 })
 
 const Title = styled.input({
@@ -44,9 +47,61 @@ const Ul = styled.ul({
   listStyle: 'none',
 })
 
-const Input = styled.input({
-  width: '100%',
+const TodoWrapper = styled.div({
+  display: 'flex',
+  margin: '7px',
+  justifyContent: 'center',
 })
+
+const Checkbox = styled.div({
+  width: '23px',
+  height: '23px',
+  borderRadius: '50%',
+  marginRight: '10px',
+  border: '1px solid white',
+  padding: '2px',
+
+  '&:hover': {
+      background: '#a46dd1',
+      cursor: 'pointer',
+  }
+})
+
+const I = styled.i((props) => ({
+  color: '#e8ed8a',
+  fontSize: '16px',
+  display: props.isCompleted ? 'block' : 'none',
+}))
+
+const Input = styled.input((props) => {
+    
+  return ({
+  width: '80%',
+  borderRadius: '5px',
+  border: 'none',
+  outline: 'none',
+  paddingLeft: '5px',
+  background: '#c3a6e3',
+  fontFamily: 'Raleway, sans-serif',
+  fontWeight: '500',
+  fontSize: '18px',
+  textDecoration: props.isCompleted ? 'line-through' : 'none',
+})})
+
+const DeleteButton = styled.i({
+  color: 'rgba(84, 13, 166, 0.5)',
+  fontSize: '16px',
+  padding: '4px',
+  borderRadius: '3px',
+  marginLeft: '10px',
+
+  '&:hover': {
+      background: '#f54636',
+      cursor: 'pointer',
+      color: 'white',
+  }
+})
+
 
 // Component Definition
 function App() {
@@ -146,19 +201,18 @@ const createTodo = (e, i, j) => {
   }, 0);
 }
 
-// const createTodoButton = () => {
-//   const newTodos = [...todos];
-//   console.log(newTodos);
-//   newTodos.push({
-//       id: uuid(),
-//       content: '',
-//       isCompleted: false,
-//   });
-//   setTodos(newTodos);
-//   setTimeout(() => {
-//       document.forms[1].elements[newTodos.length - 1].focus()
-//   }, 0);
-// }
+const createTodoButton = (e, i) => {
+  const newTodoList = [...todoList];
+    newTodoList[i].todos.push({
+      id: uuid(),
+      content: '',
+      isCompleted: false,
+  });
+  setTodoList(newTodoList);
+  setTimeout(() => {
+      document.forms[i + 1].elements[newTodoList[i].todos.length].focus()
+  }, 0);
+}
 
 const deleteTodo = (e, i, j) => {
   if(j === 0 && todoList[i].todos.length === 1) return;
@@ -172,10 +226,12 @@ const deleteTodo = (e, i, j) => {
   }, 0);
 }
 
-// const deleteTodoButton = (e, i) => {
-//   const newTodos = todos.filter(todo => todo.id !== todos[i].id);
-//   setTodos(newTodos);
-// }
+const deleteTodoButton = (e, i, j) => {
+  const newTodoList = [...todoList];
+  const newTodos = newTodoList[i].todos.filter(todo => todo.id !== newTodoList[i].todos[j].id);
+  newTodoList[i].todos = newTodos;
+  setTodoList(newTodoList);
+}
 
 const updateTodo = (e, i, j) => {
   const newTodoList = [...todoList];
@@ -183,12 +239,12 @@ const updateTodo = (e, i, j) => {
   setTodoList(newTodoList);
 }
 
-// const toggleTodo = (e, i) => {
-//   const newTodos = [...todos];
-//   newTodos[i].isCompleted = !newTodos[i].isCompleted;
-//   setTodos(newTodos);
-//   console.log(todos);
-// }
+const toggleTodo = (e, i, j) => {
+  const newTodoList = [...todoList];
+  newTodoList[i].todos[j].isCompleted = !newTodoList[i].todos[j].isCompleted;
+  setTodoList(newTodoList);
+  console.log(todoList[i].todos[j]);
+}
 
   return (
     <Container>
@@ -197,18 +253,32 @@ const updateTodo = (e, i, j) => {
       <Wrapper>
         {todoList.map((list, i) => (
           <ListBox key={list.id}>
+            <AddTodo createTodoButton={e => createTodoButton(e, i)} />
             <Title 
             value={list.listName}
             onChange={e => updateListName(e, i)} />
             <Ul>
               {list.todos.map((todo, j) => (
-                <div key={todo.id}>
+                <TodoWrapper key={todo.id}>
+                  <Checkbox 
+                  onClick={e => toggleTodo(e, i, j)} 
+                  >
+                    <I 
+                      className="fas fa-check" 
+                      isCompleted={todo.isCompleted}
+                      />
+                  </Checkbox>
                   <Input 
+                  isCompleted={todo.isCompleted}
                   value={todo.content}
                   onChange={e => updateTodo(e, i, j)}
                   onKeyDown={e => handleKeyDown(e, i, j)} 
                   />
-                </div>
+                  <DeleteButton
+                  className="fas fa-trash-alt" 
+                  onClick={e => deleteTodoButton(e, i, j)}
+                  />
+                </TodoWrapper>
               ))}
             </Ul>
           </ListBox>

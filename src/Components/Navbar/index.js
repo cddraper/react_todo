@@ -20,6 +20,7 @@ const Nav = styled.nav((props) => {
     height: '80px',
     width: '100%',
     background: 'rgba(120, 114, 114, 0.45)',
+    position: 'fixed',
 })})
 
 const Ul = styled.ul({
