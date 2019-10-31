@@ -36,7 +36,7 @@ const ListBox = styled.form({
   borderRadius: '5px',
   background: 'rgba(84 , 13 , 166 , 0.5)',
   border: '2px solid white',
-  marginBottom: '2rem',
+  margin: '1.25rem 0',
   padding: '1rem',
 })
 

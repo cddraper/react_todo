@@ -48,6 +48,10 @@ const I = styled.i({
     color: '#0a5494',
 })
 
+const A = styled.a({
+
+})
+
 
 
 // Componenet Definition
@@ -60,27 +64,25 @@ const Footer = () => {
             <Section>
                 <Title>About</Title>
                 <Ul>
-                    <Li>Todolist Inc</Li>
                     <Li>FAQ</Li>
                 </Ul>
             </Section>
             <Section>
                 <Title>Contact</Title>
                 <Ul>
-                    <Li>info@todolist.com</Li>
-                    <Li>(555) 555-5555</Li>
+                    <Li>clayddraper@gmail.com</Li>
                 </Ul>
             </Section>
             <Section>
                 <Title>Follow Us</Title>
                 <Ul>
-                    <I className="fab fa-facebook-square" />
-                    <I className="fab fa-linkedin" />
-                    <I className="fab fa-twitter-square" />
+                    <A href="https://github.com/cddraper" target="_blank" ><I className="fab fa-github-square" /></A>
+                    <A href="https://www.linkedin.com/in/claydraper/" target="_blank" ><I className="fab fa-linkedin" /></A>
+                    <A href="https://twitter.com/ClayDraper" target="_blank" ><I className="fab fa-twitter-square" /></A>
                 </Ul>
             </Section>
             <Section>
-                <Info>copyright 2019 Todolist Inc.</Info>
+                <Info>&copy; 2019 Todo List</Info>
             </Section>
         </Wrapper>
     )
