@@ -23,6 +23,10 @@ const Wrapper = styled.div({
   justifyContent: 'space-around',
   margin: '1rem 1rem 2.25rem 1rem',
 
+  '@media screen and (max-width: 700px)': {
+    gridTemplateColumns: '400px',
+  },
+
 })
 
 const ListBox = styled.form({
@@ -105,11 +109,6 @@ const DeleteButton = styled.i({
       cursor: 'pointer',
       color: 'white',
   }
-})
-
-const Buffer = styled.div({
-  width: '100%',
-  height: '20px',
 })
 
 
