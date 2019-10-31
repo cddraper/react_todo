@@ -10,20 +10,18 @@ import NewTodoForm from './Components/NewTodoForm/index';
 import AddTodo from './Components/AddTodo/index';
 import Footer from './Components/Footer/index';
 
-const Container = styled.div`
-  display: flex;
-  flex-flow: column;
-  height: 100vh;
-  margin: auto;
-`
+const Container = styled.div({
+  display: 'flex',
+  flexFlow: 'column',
+})
 
 const Wrapper = styled.div({
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 400px)',
+  gridTemplateRows: 'repeat(200px)',
   alignItems: 'flex-start',
   justifyContent: 'space-around',
-  height: '100%',
-  margin: '1rem',
+  margin: '1rem 1rem 2.25rem 1rem',
 
 })
 
@@ -34,13 +32,20 @@ const ListBox = styled.form({
   borderRadius: '5px',
   background: 'rgba(84 , 13 , 166 , 0.5)',
   border: '2px solid white',
+  marginBottom: '2rem',
+  padding: '1rem',
 })
 
 const Title = styled.input({
   fontSize: '20px',
+  fontFamily: 'Raleway, sans-serif',
+  fontWeight: '700',
+  textAlign: 'center',
+  alignSelf: 'center',
   border: 'none',
   background: 'none',
   outline: 'none',
+  margin: '0.4rem 0',
 })
 
 const Ul = styled.ul({
@@ -67,7 +72,7 @@ const Checkbox = styled.div({
   }
 })
 
-const I = styled.i((props) => ({
+const Checkmark = styled.i((props) => ({
   color: '#e8ed8a',
   fontSize: '16px',
   display: props.isCompleted ? 'block' : 'none',
@@ -100,6 +105,11 @@ const DeleteButton = styled.i({
       cursor: 'pointer',
       color: 'white',
   }
+})
+
+const Buffer = styled.div({
+  width: '100%',
+  height: '20px',
 })
 
 
@@ -263,7 +273,7 @@ const toggleTodo = (e, i, j) => {
                   <Checkbox 
                   onClick={e => toggleTodo(e, i, j)} 
                   >
-                    <I 
+                    <Checkmark 
                       className="fas fa-check" 
                       isCompleted={todo.isCompleted}
                       />

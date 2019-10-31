@@ -9,7 +9,7 @@ const TodoButton = styled.i({
     position: 'absolute',
     color: '#28fcbd',
     fontSize: '25px',
-    margin: '1rem',
+    margin: '0 1rem 1rem 0',
     
     '&:hover': {
         cursor: 'pointer',

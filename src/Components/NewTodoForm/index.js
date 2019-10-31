@@ -8,10 +8,14 @@ const Form = styled.form({
     display: 'flex',
     flexFlow: 'column',
     width: '400px',
-    background: 'lightgray',
+    background: '#337eff',
     justifyContent: 'space-around',
     padding: '1rem',
-    margin: '1rem auto',
+    margin: '2rem auto 1rem auto',
+    fontFamily: 'Raleway, sans-serif',
+    textAlign: 'center',
+    borderRadius: '5px',
+    border: '2px solid white',
 
 })
 
@@ -21,11 +25,33 @@ const Header = styled.h2({
 })
 
 const Input = styled.input({
-    paddingLeft: '5px',
+    padding: '5px 5px 5px 10px',
+    outline: 'none',
+    margin: '1rem',
+    borderRadius: '5px',
+    border: 'none',
+    fontFamily: 'Raleway, sans-serif',
 })
 
 const Add = styled.button({
+    fontFamily: 'Raleway, sans-serif',
+    fontWeight: '500',
+    width: '80px',
+    alignSelf: 'center',
+    borderRadius: '5px',
+    border: 'none',
+    padding: '0.5rem',
+    outline: 'none',
+    background: '#ffefa6',
 
+    '&:hover': {
+        cursor: 'pointer',
+    },
+
+    '&:active': {
+        background: '#f2d966',
+        // color: 'gray',
+    },
 })
 
 
