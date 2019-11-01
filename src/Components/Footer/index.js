@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div({
     display: 'grid',
+    flex: '0',
     gridTemplateColumns: '1fr 1fr 1fr 1fr',
     width: '100%',
     background: 'rgba(120, 114, 114, 0.25)',

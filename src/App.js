@@ -17,6 +17,7 @@ const Container = styled.div({
 
 const Wrapper = styled.div({
   display: 'grid',
+  flex: '1',
   gridTemplateColumns: 'repeat(3, 400px)',
   gridTemplateRows: 'repeat(200px)',
   alignItems: 'flex-start',
@@ -60,6 +61,17 @@ const TodoWrapper = styled.div({
   display: 'flex',
   margin: '7px',
   justifyContent: 'center',
+})
+
+const DeleteTodoListButton = styled.i({
+  alignSelf: 'flex-end',
+  margin: '-2rem 0 1.25rem 0',
+
+  '&:hover': {
+    cursor: 'pointer',
+    color: 'white',
+}
+
 })
 
 const Checkbox = styled.div({
@@ -166,6 +178,7 @@ const handleAddClick = (e, i) => {
   e.preventDefault();
   let newTodoList = [...todoList];
   newTodoList.push({
+    id: uuid(),
     listName: document.forms[0].elements[0].value,
     todos: [
       {
@@ -182,6 +195,11 @@ const handleAddClick = (e, i) => {
 const updateListName = (e, i) => {
   let newTodoList = [...todoList];
   newTodoList[i].listName = e.target.value;
+  setTodoList(newTodoList);
+}
+
+const deleteTodoListButton = (e, i) => {
+  const newTodoList = todoList.filter(list => list.id !== todoList[i].id);
   setTodoList(newTodoList);
 }
 
@@ -266,6 +284,10 @@ const toggleTodo = (e, i, j) => {
             <Title 
             value={list.listName}
             onChange={e => updateListName(e, i)} />
+            <DeleteTodoListButton 
+            className="fas fa-trash-alt"
+            onClick={e => deleteTodoListButton(e, i)}
+            />
             <Ul>
               {list.todos.map((todo, j) => (
                 <TodoWrapper key={todo.id}>
