@@ -49,8 +49,8 @@ const A = styled.a((props) => {
         background: document.URL === props.href? '#eaff73' : 'white',
         display: 'block',
         marginTop: '4px',
-        visibility: document.URL === props.href? 'visible' : 'hidden',
-        transform: document.URL === props.href? 'scaleX(1)' : 'scaleX(0)',
+        visibility: 'hidden',
+        transform: 'scaleX(0)',
         transition: '0.3s',
     },
 
