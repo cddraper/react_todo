@@ -6,7 +6,6 @@ import uuid from 'uuid';
 // Internal Dependencies
 import Navbar from './Components/Navbar/index';
 import NewTodoForm from './Components/NewTodoForm/index';
-// import TodoList from './Components/TodoList/index';
 import AddTodo from './Components/AddTodo/index';
 import Footer from './Components/Footer/index';
 
@@ -66,6 +65,7 @@ const TodoWrapper = styled.div({
 const DeleteTodoListButton = styled.i({
   alignSelf: 'flex-end',
   margin: '-2rem 0 1.25rem 0',
+  fontSize: '18px',
 
   '&:hover': {
     cursor: 'pointer',

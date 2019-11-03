@@ -13,10 +13,14 @@ const Wrapper = styled.div({
     background: 'rgba(120, 114, 114, 0.25)',
     padding: '1rem',
     fontFamily: 'Raleway, sans-serif',
+
+    '@media screen and (max-width: 700px)': {
+        gridTemplateColumns: '1fr 2fr 1fr 1.5fr',
+    }
 })
 
 const Section = styled.div({
-
+    
 })
 
 const Title = styled.p({
@@ -75,7 +79,7 @@ const Footer = () => {
                 </Ul>
             </Section>
             <Section>
-                <Title>Follow Us</Title>
+                <Title>Follow</Title>
                 <Ul>
                     <A href="https://github.com/cddraper" target="_blank" ><I className="fab fa-github-square" /></A>
                     <A href="https://www.linkedin.com/in/claydraper/" target="_blank" ><I className="fab fa-linkedin" /></A>

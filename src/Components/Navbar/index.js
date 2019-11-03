@@ -37,7 +37,7 @@ const Li = styled.li({
 const A = styled.a((props) => {
     
     return({
-    color: props.className? '#eaff73' : 'white',
+    color: document.URL === props.href ? '#eaff73' : 'white',
     textDecoration: 'none',
     fontSize: '18px',
     fontWeight: '500',
@@ -46,11 +46,11 @@ const A = styled.a((props) => {
         content: '""',
         height: '2px',
         width: '100%',
-        background: props.className? '#eaff73' : 'white',
+        background: document.URL === props.href? '#eaff73' : 'white',
         display: 'block',
         marginTop: '4px',
-        visibility: props.className? 'visible' : 'hidden',
-        transform: props.className? 'scaleX(1)' : 'scaleX(0)',
+        visibility: document.URL === props.href? 'visible' : 'hidden',
+        transform: document.URL === props.href? 'scaleX(1)' : 'scaleX(0)',
         transition: '0.3s',
     },
 
@@ -58,7 +58,7 @@ const A = styled.a((props) => {
         content: '""',
         height: '2px',
         width: '100%',
-        background: props.className? '#eaff73' : 'white',
+        background: document.URL === props.href? '#eaff73' : 'white',
         display: 'block',
         marginTop: '4px',
         transform: 'scaleX(1)',
@@ -132,9 +132,9 @@ const Navbar = () => {
                     </LogoTextWrapper>
                 </LogoWrapper>
                 <Ul>
-                    <Li><A href='#'>Home</A></Li>
-                    <Li><A href='#' className='active'>Todo List</A></Li>
-                    <Li><A href='#'>FAQ</A></Li>
+                    <Li><A href='http://localhost:3000/home'>Home</A></Li>
+                    <Li><A href='http://localhost:3000/'>Todo List</A></Li>
+                    <Li><A href='http://localhost:3000/faq'>FAQ</A></Li>
                 </Ul>
             </Nav>
             <Hamburger 
