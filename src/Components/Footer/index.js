@@ -20,7 +20,7 @@ const Wrapper = styled.div({
 })
 
 const Section = styled.div({
-    
+
 })
 
 const Title = styled.p({
@@ -54,7 +54,9 @@ const I = styled.i({
 })
 
 const A = styled.a({
-
+    textDecoration: 'none',
+    color: '#0a5494',
+    fontFamily: 'Raleway, sans-serif',
 })
 
 
@@ -69,7 +71,7 @@ const Footer = () => {
             <Section>
                 <Title>About</Title>
                 <Ul>
-                    <Li>FAQ</Li>
+                    <Li><A href='http://localhost:3000/faq'>FAQ</A></Li>
                 </Ul>
             </Section>
             <Section>

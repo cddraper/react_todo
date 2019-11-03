@@ -6,6 +6,6 @@ import LandingPage from './Landing';
 import FAQ from './FAQ';
 
 ReactDOM.render(
-document.URL === 'http://localhost:3000/home' ? <LandingPage /> : document.url === 'http://localhost:3000/faq' ? <FAQ /> : <App />, document.getElementById('root')
+document.URL === 'http://localhost:3000/home' ? <LandingPage /> : document.URL === 'http://localhost:3000/faq' ? <FAQ /> : <App />, document.getElementById('root')
 );
 
