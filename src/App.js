@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import uuid from 'uuid';
+import { withCookies, useCookies } from 'react-cookie';
 
 // Internal Dependencies
 import Navbar from './Components/Navbar/index';
@@ -172,113 +173,143 @@ function App() {
     },
   ])  
 
+  const [cookies, setCookie] = useCookies(['todoLists']);
 
-// NewTodoForm logic
-const handleAddClick = (e, i) => {
-  e.preventDefault();
-  let newTodoList = [...todoList];
-  newTodoList.push({
-    id: uuid(),
-    listName: document.forms[0].elements[0].value,
-    todos: [
-      {
+  // NewTodoForm logic
+  const handleAddClick = (e, i) => {
+    e.preventDefault();
+    let newTodoList;
+    cookies.todoLists ? newTodoList = [...cookies.todoLists] : newTodoList = [...todoList];
+    newTodoList.push({
+      id: uuid(),
+      listName: document.forms[0].elements[0].value,
+      todos: [
+        {
+          id: uuid(),
+          content: '',
+          isCompleted: false,
+        },
+      ]
+    });
+    // setTodoList(newTodoList);
+    setCookie('todoLists', newTodoList, {path: '/'});
+    document.forms[0].elements[0].value = '';
+  }
+
+  const updateListName = (e, i) => {
+    let newTodoList;
+    cookies.todoLists ? newTodoList = [...cookies.todoLists] : newTodoList = [...todoList];
+    newTodoList[i].listName = e.target.value;
+    // setTodoList(newTodoList);
+    setCookie('todoLists', newTodoList, {path: '/'});
+  }
+
+  const deleteTodoListButton = (e, i) => {
+    let newTodoList;
+    cookies.todoLists ? newTodoList = cookies.todoLists.filter(list => list.id !== cookies.todoLists[i].id) : newTodoList = todoList.filter(list => list.id !== todoList[i].id);
+    // setTodoList(newTodoList);
+    setCookie('todoLists', newTodoList, {path: '/'});
+  }
+
+
+  // // TodoList logic
+  const handleKeyDown = (e, i, j) => {
+    if(e.key === 'Enter'){
+        createTodo(e, i, j)
+    }
+    if(e.key === 'Backspace' && mapMe[i].todos[j].content === ''){
+        deleteTodo(e, i, j)
+        console.log('backspace');
+    }
+  }
+
+  const createTodo = (e, i, j) => {
+    let newTodoList;
+    cookies.todoLists ? newTodoList = [...cookies.todoLists] : newTodoList = [...todoList];
+    newTodoList[i].todos.splice(j + 1, 0, {
         id: uuid(),
         content: '',
         isCompleted: false,
-      },
-    ]
-  });
-  setTodoList(newTodoList);
-  document.forms[0].elements[0].value = '';
-}
-
-const updateListName = (e, i) => {
-  let newTodoList = [...todoList];
-  newTodoList[i].listName = e.target.value;
-  setTodoList(newTodoList);
-}
-
-const deleteTodoListButton = (e, i) => {
-  const newTodoList = todoList.filter(list => list.id !== todoList[i].id);
-  setTodoList(newTodoList);
-}
-
-
-// // TodoList logic
-const handleKeyDown = (e, i, j) => {
-  if(e.key === 'Enter'){
-      createTodo(e, i, j)
+    })
+    // setTodoList(newTodoList);
+    setCookie('todoLists', newTodoList, {path: '/'});
+    setTimeout(() => {
+        document.forms[i + 1].elements[j + 2].focus()
+    }, 0);
   }
-  if(e.key === 'Backspace' && todoList[i].todos[j].content === ''){
-      deleteTodo(e, i, j)
-      console.log('backspace');
+
+  const createTodoButton = (e, i) => {
+    let newTodoList;
+    cookies.todoLists ? newTodoList = [...cookies.todoLists] : newTodoList = [...todoList];
+      newTodoList[i].todos.push({
+        id: uuid(),
+        content: '',
+        isCompleted: false,
+    });
+    // setTodoList(newTodoList);
+    setCookie('todoLists', newTodoList, {path: '/'});
+    setTimeout(() => {
+        document.forms[i + 1].elements[newTodoList[i].todos.length].focus()
+    }, 0);
   }
-}
 
-const createTodo = (e, i, j) => {
-  const newTodoList = [...todoList];
-  newTodoList[i].todos.splice(j + 1, 0, {
-      id: uuid(),
-      content: '',
-      isCompleted: false,
-  })
-  setTodoList(newTodoList);
-  setTimeout(() => {
-      document.forms[i + 1].elements[j + 2].focus()
-  }, 0);
-}
+  const deleteTodo = (e, i, j) => {
+    if(j === 0 && cookies.todoLists[i].todos.length === 1) return;
+    let newTodoList;
+    cookies.todoLists ? newTodoList = [...cookies.todoLists] : newTodoList = [...todoList];
+    let newTodos;
+    cookies.todoLists? newTodos = cookies.todoLists[i].todos.filter(todo => todo.id !== cookies.todoLists[i].todos[j].id) : todoList[i].todos.filter(todo => todo.id !== todoList[i].todos[j].id);
+    newTodoList[i].todos = newTodos;
+    // setTodoList(newTodoList);
+    setCookie('todoLists', newTodoList, {path: '/'});
+    if(j === 0) return;
+    setTimeout(() => {
+        document.forms[i + 1].elements[j].focus();
+    }, 0);
+  }
 
-const createTodoButton = (e, i) => {
-  const newTodoList = [...todoList];
-    newTodoList[i].todos.push({
-      id: uuid(),
-      content: '',
-      isCompleted: false,
-  });
-  setTodoList(newTodoList);
-  setTimeout(() => {
-      document.forms[i + 1].elements[newTodoList[i].todos.length].focus()
-  }, 0);
-}
+  const deleteTodoButton = (e, i, j) => {
+    let newTodoList;
+    cookies.todoLists ? newTodoList = [...cookies.todoLists] : newTodoList = [...todoList];
+    const newTodos = newTodoList[i].todos.filter(todo => todo.id !== newTodoList[i].todos[j].id);
+    newTodoList[i].todos = newTodos;
+    // setTodoList(newTodoList);
+    setCookie('todoLists', newTodoList, {path: '/'});
+  }
 
-const deleteTodo = (e, i, j) => {
-  if(j === 0 && todoList[i].todos.length === 1) return;
-  const newTodoList = [...todoList];
-  const newTodos = todoList[i].todos.filter(todo => todo.id !== todoList[i].todos[j].id);
-  newTodoList[i].todos = newTodos;
-  setTodoList(newTodoList);
-  if(j === 0) return;
-  setTimeout(() => {
-      document.forms[i + 1].elements[j].focus();
-  }, 0);
-}
+  const updateTodo = (e, i, j) => {
+    let newTodoList;
+    cookies.todoLists ? newTodoList = [...cookies.todoLists] : newTodoList = [...todoList];
+    newTodoList[i].todos[j].content = e.target.value
+    // setTodoList(newTodoList);
+    setCookie('todoLists', newTodoList, {path: '/'});
+  }
 
-const deleteTodoButton = (e, i, j) => {
-  const newTodoList = [...todoList];
-  const newTodos = newTodoList[i].todos.filter(todo => todo.id !== newTodoList[i].todos[j].id);
-  newTodoList[i].todos = newTodos;
-  setTodoList(newTodoList);
-}
+  const toggleTodo = (e, i, j) => {
+    let newTodoList;
+    cookies.todoLists ? newTodoList = [...cookies.todoLists] : newTodoList = [...todoList];
+    newTodoList[i].todos[j].isCompleted = !newTodoList[i].todos[j].isCompleted;
+    // setTodoList(newTodoList);
+    setCookie('todoLists', newTodoList, {path: '/'});
+    console.log(cookies);
+    console.log(cookies.todoLists);
+    // console.log(todoList[i].todos[j]);
+  }
 
-const updateTodo = (e, i, j) => {
-  const newTodoList = [...todoList];
-  newTodoList[i].todos[j].content = e.target.value
-  setTodoList(newTodoList);
-}
+  let mapMe;
 
-const toggleTodo = (e, i, j) => {
-  const newTodoList = [...todoList];
-  newTodoList[i].todos[j].isCompleted = !newTodoList[i].todos[j].isCompleted;
-  setTodoList(newTodoList);
-  console.log(todoList[i].todos[j]);
-}
-
+  if(cookies.todoLists){
+    mapMe = [...cookies.todoLists]
+  } else {
+    mapMe = [...todoList]
+  }
+  
   return (
     <Container>
       <Navbar />
       <NewTodoForm handleAddClick={handleAddClick}/>
       <Wrapper>
-        {todoList.map((list, i) => (
+        {mapMe.map((list, i) => (
           <ListBox key={list.id}>
             <AddTodo createTodoButton={e => createTodoButton(e, i)} />
             <Title 
@@ -320,4 +351,4 @@ const toggleTodo = (e, i, j) => {
   );
 }
 
-export default App;
+export default withCookies(App);
