@@ -13,11 +13,12 @@ import Footer from './Components/Footer/index';
 const Container = styled.div({
   display: 'flex',
   flexFlow: 'column',
+  height: '100vh',
 })
 
 const Wrapper = styled.div({
   display: 'grid',
-  flex: '1',
+  flexGrow: '2',
   gridTemplateColumns: 'repeat(3, 400px)',
   gridTemplateRows: 'repeat(200px)',
   alignItems: 'flex-start',
