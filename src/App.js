@@ -14,6 +14,7 @@ const Container = styled.div({
   display: 'flex',
   flexFlow: 'column',
   height: '100vh',
+  paddingTop: '4rem',
 })
 
 const Wrapper = styled.div({
